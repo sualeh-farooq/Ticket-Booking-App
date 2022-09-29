@@ -2,7 +2,6 @@ function blackAdam() {
     let modal = document.getElementById('modalcheck')
     modal.innerHTML = `
     <!-- Button HTML (to Trigger Modal) -->
-
                 <!-- Modal HTML -->
                 <div id="myModal" class="modal fade">
                     <div class="modal-dialog">
@@ -135,7 +134,8 @@ container.addEventListener("click", (e) => {
 })
 
 
-function book() {
+function book(id) {
+    movieName = id
     let movies = document.getElementById('cardgrid')
     let showing = document.getElementById('showing')
     movies.style.display = 'none'
@@ -148,7 +148,10 @@ function book() {
         showDate()
     }, 5000);
 
+    return movieName
 }
+
+let finalName = book(movieName)
 
 
 function showDate() {
@@ -158,15 +161,17 @@ function showDate() {
 
     let showtime = document.getElementById('showtime')
     showtime.innerHTML = `Showtime : Sat Oct 01 2022 <br> <br>
-    <button class='movietime' onclick='seats()'  value='7pm'> 7.00PM </button>
+    <button class='movietime' onclick='seats(this.value)'  value='7pm'> 7.00PM </button>
     
     <br><br><br>
     Showtime : Sat Oct 03 2022 <br> <br>
-    <button class='movietime' onclick='seats()' value='5pm'> 5.00PM </button>`
+    <button class='movietime' onclick='seats(this.value)' value='5pm'> 5.00PM </button>`
 }
 
 
-function seats() {
+
+
+function seats(value) {
     let movies = document.getElementById('cardgrid')
     let showing = document.getElementById('showing')
     let showdet = document.getElementById('showdet')
@@ -178,14 +183,18 @@ function seats() {
         document.getElementById('loader').style.display = 'none'
         document.getElementById('booking').style.display = 'block'
     }, 5000);
+    return value
 }
+
+let movieNameFinal = seats(value)
+console.log(movieNameFinal)
 
 
 async function checkAlert() {
     const { value: formValues } = await Swal.fire({
         title: 'Buyer Details',
-        html: '<input id="swal-input1" required class="swal2-input" placeholder = "Enter Your Name" >' +
-            '<input id="swal-input2" required class="swal2-input" placeholder = "Enter Your CNIC" >',
+        html: `<input id="swal-input1" required class="swal2-input" placeholder = "Enter Your Name" >' 
+            '<input id="swal-input2" required class="swal2-input" placeholder = "Enter Your CNIC" >`,
         focusConfirm: false,
         preConfirm: () => {
 
@@ -198,7 +207,8 @@ async function checkAlert() {
 
             } else {
 
-                swal("Good job!", "You clicked the button!", "success");
+                swal("Purchased Succesfully", `Thank You for Your Purchase ${swalInput1}`, "success");
+                final()
             }
             // document.getElementById('swal-input1').value,
             // document.getElementById('swal-input2').value
@@ -213,13 +223,38 @@ async function checkAlert() {
     if (!formValues) {
         alert('Please Enter Details')
     }
+
+
 }
 
 
-document.getElementById('booking').style.display = 'block'
-let movies = document.getElementById('cardgrid')
-let showing = document.getElementById('showing')
-let showdet = document.getElementById('showdet')
-movies.style.display = 'none'
-showing.style.display = 'none'
-showdet.style.display = 'none'
+
+function final() {
+    let movies = document.getElementById('cardgrid')
+    let showing = document.getElementById('showing')
+    let showdet = document.getElementById('showdet')
+    document.getElementById('booking').style.display = 'none'
+    document.getElementById('finalticket').style.display = 'block'
+    movies.style.display = 'none'
+    showing.style.display = 'none'
+    showdet.style.display = 'none'
+        // document.getElementById('loader').style.display = 'block'
+        // setTimeout(() => {
+        //     document.getElementById('loader').style.display = 'none'
+        // }, 5000);
+
+    let detail = document.getElementById('ticketDet')
+    detail.innerHTML += `Movie Name : ${movieNameFinal}`
+
+}
+
+final()
+
+
+// document.getElementById('booking').style.display = 'block'
+// let movies = document.getElementById('cardgrid')
+// let showing = document.getElementById('showing')
+// let showdet = document.getElementById('showdet')
+// movies.style.display = 'none'
+// showing.style.display = 'none'
+// showdet.style.display = 'none'

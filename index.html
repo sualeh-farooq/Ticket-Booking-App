@@ -88,7 +88,6 @@
                     <h5>NOW SHOWING</h5>
                 </div>
                 <div class="cardgrid" id="cardgrid">
-
                     <div class="card" style="width: 18rem;">
                         <img class="card-img-top" src="/assests/LondonNahiJaunga.jpg" alt="Card image cap">
                         <div class="card-body">
@@ -100,7 +99,7 @@
                                 </ul>
                             </p>
                             <a class="btn trailer btn-primary" href="#myModal" onclick="blackAdam()" data-toggle="modal">   Watch Trailer <i class="fa-solid fa-play"></i></a>
-                            <a onclick="book()" class="btn ticket btn-primary">Book a Ticket</a>
+                            <a onclick="book(this.id)" id="Black Adam" class="btn ticket btn-primary">Book a Ticket</a>
 
                         </div>
                     </div>
@@ -115,7 +114,7 @@
                                 </ul>
                             </p>
                             <a class="btn trailer btn-primary" href="#myModal" onclick="idCheck()" data-toggle="modal">Watch Trailer <i class="fa-solid fa-play"></i></a>
-                            <a class="btn ticket btn-primary">Book a Ticket</a>
+                            <a onclick="book(this.id)" id="Ida Red" class="btn ticket btn-primary">Book a Ticket</a>
 
                         </div>
                     </div>
@@ -130,7 +129,7 @@
                                 </ul>
                             </p>
                             <a class="btn trailer btn-primary" href="#myModal" onclick="pussBoots()" data-toggle="modal">Watch Trailer <i class="fa-solid fa-play"></i></a>
-                            <a href="#" class="btn ticket btn-primary">Book a Ticket</a>
+                            <a onclick="book(this.id)" id="Puss in Boots" class="btn ticket btn-primary">Book a Ticket</a>
 
                         </div>
                     </div>
@@ -145,11 +144,28 @@
                                 </ul>
                             </p>
                             <a class="btn trailer btn-primary" href="#myModal" onclick="thor()" data-toggle="modal">Watch Trailer <i class="fa-solid fa-play"></i></a>
-                            <a href="#" class="btn ticket btn-primary">Book a Ticket</a>
+                            <a onclick="book(this.id)" id="Thor: Love & Thunder" class="btn ticket btn-primary">Book a Ticket</a>
 
                         </div>
                     </div>
+
                 </div>
+                <div class="finalTicket" id="finalticket">
+                    <h3 style="text-align: center; color: white;">Get Your Movie Ticket</h3>
+                    <div class="ticketImg">
+                        <div id="ticketInfo">
+                            <p><img src="/assests/logo.png" alt=""></p>
+                            <p id="ticketDet"></p>
+                        </div>
+                        <div id="finalImg">
+                            <img src="assests/ticket2.png" alt="">
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--Final Ticket Template-->
+
             </div>
             <!--Movie Modal-->
             <div class="bs-example" id="modalcheck">
@@ -465,7 +481,6 @@
 
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js "></script>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js " integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc " crossorigin="anonymous "></script>
