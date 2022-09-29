@@ -75,7 +75,7 @@ function thor() {
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Puss In Boots</h5>
+                                <h5 class="modal-title">Thor</h5>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
@@ -98,6 +98,7 @@ function updateCount() {
     if (totalSeatsBooked > 0 || totalVacentSeats > 0) {
         let btn = document.getElementById('ticket2')
         btn.classList.remove('disabled')
+
     }
     let totalSeatCount = (totalSeatsBooked - totalVacentSeats);
     ticketCount.innerText = totalSeatCount;
@@ -124,10 +125,7 @@ container.addEventListener("click", (e) => {
         e.target.src = '/assests/seat.png';
         e.target.className = 'vacentSeat';
         ++totalVacentSeats;
-        if (totalSeatsBooked > 0 || totalVacentSeats > 0) {
-            let btn = document.getElementById('ticket2')
-            btn.classList.remove('disabled')
-        }
+
     }
 
     updateCount();
@@ -147,11 +145,10 @@ function book(id) {
         showdet.style.display = 'block'
         showDate()
     }, 5000);
+    localStorage.setItem('movie', id)
 
     return movieName
 }
-
-let finalName = book(movieName)
 
 
 function showDate() {
@@ -183,45 +180,56 @@ function seats(value) {
         document.getElementById('loader').style.display = 'none'
         document.getElementById('booking').style.display = 'block'
     }, 5000);
+
+    localStorage.setItem('time', value)
     return value
+
+
+
 }
 
-let movieNameFinal = seats(value)
-console.log(movieNameFinal)
+
 
 
 async function checkAlert() {
-    const { value: formValues } = await Swal.fire({
-        title: 'Buyer Details',
-        html: `<input id="swal-input1" required class="swal2-input" placeholder = "Enter Your Name" >' 
-            '<input id="swal-input2" required class="swal2-input" placeholder = "Enter Your CNIC" >`,
-        focusConfirm: false,
-        preConfirm: () => {
 
-            let swalInput1 = document.getElementById('swal-input1').value
-            let swalInput2 = document.getElementById('swal-input2').value
+    if (totalSeatsBooked > 0) {
+        const { value: formValues } = await Swal.fire({
+            title: 'Buyer Details',
+            html: `<input id="swal-input1" required class="swal2-input" placeholder = "Enter Your Name" > 
+            <input id="swal-input2" required class="swal2-input" placeholder = "Enter Your CNIC" >`,
+            focusConfirm: false,
+            preConfirm: () => {
+                let swalInput1 = document.getElementById('swal-input1').value
+                let swalInput2 = document.getElementById('swal-input2').value
 
 
-            if (swalInput1.trim() === "" && swalInput2.trim() === "") {
-                swal("Invalid Details", "Please Enter Your Details", "error");
+                if (swalInput1.trim() === "" && swalInput2.trim() === "") {
+                    swal("Invalid Details", "Please Enter Your Details", "error");
 
-            } else {
+                } else {
 
-                swal("Purchased Succesfully", `Thank You for Your Purchase ${swalInput1}`, "success");
-                final()
+                    swal("Purchased Succesfully", `Thank You for Your Purchase ${swalInput1}`, "success");
+                    localStorage.setItem('buyerName', swalInput1)
+                    localStorage.setItem('buyerCnic', swalInput2)
+
+                    final()
+                }
+                // document.getElementById('swal-input1').value,
+                // document.getElementById('swal-input2').value
+
             }
-            // document.getElementById('swal-input1').value,
-            // document.getElementById('swal-input2').value
+        })
 
+        if (formValues) {
+            // Swal.fire(JSON.stringify(formValues))
         }
-    })
 
-    if (formValues) {
-        // Swal.fire(JSON.stringify(formValues))
-    }
-
-    if (!formValues) {
-        alert('Please Enter Details')
+        if (!formValues) {
+            alert('Please Enter Details')
+        }
+    } else {
+        swal('Please Select Your Seats')
     }
 
 
@@ -243,18 +251,40 @@ function final() {
         //     document.getElementById('loader').style.display = 'none'
         // }, 5000);
 
+
+
+    let movieDate;
+
     let detail = document.getElementById('ticketDet')
-    detail.innerHTML += `Movie Name : ${movieNameFinal}`
+
+    let time = localStorage.getItem('time')
+    if (time === 5) {
+        movieDate = `Sat Oct 03 2022`
+    } else {
+        movieDate = `Sat Oct 01 2022`
+    }
+
+    let seats = localStorage.getItem('SEAT')
+    let price = localStorage.getItem('Price')
+    let moviename = localStorage.getItem('movie')
+    let buyerName = localStorage.getItem('buyerName')
+    let buyerCnic = localStorage.getItem('buyerCnic')
+    detail.innerHTML += ` <ul class = 'listdet'> <li>   Movie Name : </li> <li> ${moviename} <br> </li></ul>
+    <ul class = 'listdet'> <li> Showtime : </li> <li>  ${time} ${movieDate} <br> </li></ul>
+    <ul class = 'listdet'> <li> Total Seats : </li> <li> ${seats} <br></li></ul>
+    <ul class = 'listdet'> <li> Total Price : </li> <li> ${price} <br></li></ul>
+    <ul class = 'listdet'> <li> Buyer Name : </li> <li> ${buyerName} <br></li></ul>
+    <ul class = 'listdet'> <li> CNIC Number : </li> <li> ${buyerCnic} <br></li></ul>`
 
 }
 
-final()
-
-
-// document.getElementById('booking').style.display = 'block'
 // let movies = document.getElementById('cardgrid')
 // let showing = document.getElementById('showing')
 // let showdet = document.getElementById('showdet')
+// document.getElementById('booking').style.display = 'none'
+// document.getElementById('finalticket').style.display = 'block'
 // movies.style.display = 'none'
 // showing.style.display = 'none'
 // showdet.style.display = 'none'
+
+// let detail = document.getElementById('ticketDet')
