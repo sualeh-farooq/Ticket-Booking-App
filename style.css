@@ -487,6 +487,43 @@ li {
     font-size: 30px;
 }
 
+#loaderstart {
+    display: flex;
+    justify-content: center;
+    width: 300px;
+    height: 300px;
+    margin-left: 40%;
+}
+
+.spinner-border {
+    /* border: 2px white !important; */
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#main {
+    display: none;
+}
+
+.select {
+    /* display: flex; */
+    background-color: #4d0603;
+    /* justify-content: center; */
+    width: max-content;
+    margin: 0 auto;
+    padding: 5px;
+    margin-bottom: 30px;
+}
+
+.select h4 {
+    font-size: xx-large !important;
+    color: white;
+}
+
+.btnShow {
+    margin-left: 40% !important;
+}
+
 
 /* border: none !important; */
 

@@ -1,3 +1,17 @@
+const load = () => {
+    let main = document.getElementById('main')
+    let loader2 = document.getElementById('loaderstart')
+
+
+    setTimeout(() => {
+        loader2.style.display = 'none'
+        main.style.display = 'block'
+    }, 4000);
+
+}
+load()
+
+
 function blackAdam() {
     let modal = document.getElementById('modalcheck')
     modal.innerHTML = `
