@@ -524,6 +524,11 @@ li {
     margin-left: 40% !important;
 }
 
+.det {
+    font-size: small !important;
+    margin-left: -40px;
+}
+
 
 /* border: none !important; */
 
